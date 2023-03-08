@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GenerateReportJob;
 use Illuminate\Http\Request;
 use App\Models\Report;
+use Dompdf\Dompdf;
 
 class ReportController extends Controller
 {
@@ -32,6 +34,8 @@ class ReportController extends Controller
         if (isset($validated['profile_ids'])) {
             $report->profile()->attach($validated['profile_ids']);
         }
+
+        GenerateReportJob::dispatch($report);
 
         return redirect()->route('reports.index')->with('success', 'Report created successfully.');
     }
@@ -77,5 +81,26 @@ class ReportController extends Controller
     {
         $reports = Report::with('profiles')->get();
         return view('reports-with-profiles', compact('reports'));
+    }
+
+    public function generatePdf($id)
+    {
+        // Busca o Report pelo ID
+        $report = Report::find($id);
+
+        // Cria uma instância da biblioteca Dompdf
+        $dompdf = new Dompdf();
+
+        // Renderiza a view do Report em HTML
+        $html = view('reports.pdf', compact('report'))->render();
+
+        // Carrega o HTML no Dompdf
+        $dompdf->loadHtml($html);
+
+        // Renderiza o PDF
+        $dompdf->render();
+
+        // Retorna o PDF como uma resposta do tipo "application/pdf"
+        return $dompdf->stream('report.pdf');
     }
 }

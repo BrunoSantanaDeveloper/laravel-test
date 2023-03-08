@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [ReportController::class, 'reportsWithProfiles'])->name('reports.with.profiles');
+
 Route::get('/profile/index', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
 Route::post('/profile', [ProfileController::class, 'store'])->name('profile.store');
@@ -32,3 +34,5 @@ Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('
 Route::get('/reports/{report}/profile', [ReportController::class, 'profile'])->name('reports.profile');
 Route::post('/reports/{report}/profile', [ReportController::class, 'attachProfile'])->name('reports.attachProfile');
 Route::delete('/reports/{report}/profile/{profile}', [ReportController::class, 'detachProfile'])->name('reports.detachProfile');
+
+Route::get('/report/{report}/pdf', [ReportController::class, 'generatePdf'])->name('report.pdf');
