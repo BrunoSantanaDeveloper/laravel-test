@@ -72,4 +72,10 @@ class ReportController extends Controller
         $report->delete();
         return redirect()->route('reports.index')->with('success', 'Report deleted successfully.');
     }
+
+    public function reportsWithProfiles()
+    {
+        $reports = Report::with('profiles')->get();
+        return view('reports-with-profiles', compact('reports'));
+    }
 }
