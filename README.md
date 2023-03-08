@@ -2,7 +2,7 @@
 # Laravel Test
 This is a Laravel app with Profile and Reports Crud.
 
-###Installation
+### Installation
 Clone Repository
 ```sh
 git clone https://github.com/BrunoSantanaDeveloper/laravel-test.git laravel-test
