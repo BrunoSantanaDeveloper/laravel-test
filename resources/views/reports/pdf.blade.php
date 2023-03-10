@@ -12,7 +12,7 @@
     <h2>Profiles associados</h2>
     <ul>
         @foreach($report->profiles as $profile)
-        <li>{{ $profile->first_name }} {{ $profile->last_name }} - {{ $profile->gender }} - {{ $profile->dob->format('d/m/Y') }}</li>
+        <li>{{ $profile->first_name }} {{ $profile->last_name }} - {{ $profile->gender }} - {{ \DateTime::createFromFormat('Y-m-d', $profile->dob)->format('d/m/Y') }}</li>
         @endforeach
     </ul>
 </body>
