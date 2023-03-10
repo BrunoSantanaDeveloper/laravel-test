@@ -11,12 +11,12 @@ class ProfileController extends Controller
     {
         $profiles = Profile::all();
 
-        return view('profiles.index', compact('profiles'));
+        return view('profile.index', compact('profiles'));
     }
 
     public function create()
     {
-        return view('profiles.create');
+        return view('profile.create');
     }
 
     public function store(Request $request)
@@ -30,17 +30,17 @@ class ProfileController extends Controller
 
         Profile::create($request->all());
 
-        return redirect()->route('profiles.index')->with('success', 'Profile created successfully.');
+        return redirect()->route('profile.index')->with('success', 'Profile created successfully.');
     }
 
     public function show(Profile $profile)
     {
-        return view('profiles.show', compact('profile'));
+        return view('profile.show', compact('profile'));
     }
 
     public function edit(Profile $profile)
     {
-        return view('profiles.edit', compact('profile'));
+        return view('profile.edit', compact('profile'));
     }
 
     public function update(Request $request, Profile $profile)
@@ -54,13 +54,13 @@ class ProfileController extends Controller
 
         $profile->update($request->all());
 
-        return redirect()->route('profiles.index')->with('success', 'Profile updated successfully.');
+        return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
     }
 
     public function destroy(Profile $profile)
     {
         $profile->delete();
 
-        return redirect()->route('profiles.index')->with('success', 'Profile deleted successfully.');
+        return redirect()->route('profile.index')->with('success', 'Profile deleted successfully.');
     }
 }

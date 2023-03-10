@@ -63,6 +63,14 @@ services:
         networks:
             - laravel-9
 
+    # Node.js
+    nodejs:
+        image: node:16
+        volumes:
+            - ./:/var/www
+        networks:
+            - laravel-9
+
 networks:
     laravel-9:
         driver: bridge

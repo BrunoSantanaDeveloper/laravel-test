@@ -28,9 +28,9 @@
                         <label for="profiles" class="col-md-4 col-form-label text-md-right">{{ __('Profiles') }}</label>
 
                         <div class="col-md-6">
-                            @if(count($report->profiles) > 0)
+                            @if(count($report->profile) > 0)
                             <ul>
-                                @foreach($report->profiles as $profile)
+                                @foreach($report->profile as $profile)
                                 <li>{{ $profile->first_name }} {{ $profile->last_name }}</li>
                                 @endforeach
                             </ul>

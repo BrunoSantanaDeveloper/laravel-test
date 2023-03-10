@@ -2,7 +2,9 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "start": "php artisan serve",
+        "development": "npm run dev && php artisan serve"
     },
     "devDependencies": {
         "axios": "^1.1.2",

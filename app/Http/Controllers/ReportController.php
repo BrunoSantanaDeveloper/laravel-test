@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\GenerateReportJob;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\Report;
 use Dompdf\Dompdf;
@@ -12,12 +13,14 @@ class ReportController extends Controller
     public function index()
     {
         $reports = Report::all();
+
         return view('reports.index', compact('reports'));
     }
 
     public function create()
     {
-        return view('reports.create');
+        $profiles = Profile::all();
+        return view('reports.create', ['profiles' => $profiles]);
     }
 
     public function store(Request $request)
@@ -31,8 +34,8 @@ class ReportController extends Controller
 
         $report = Report::create($validated);
 
-        if (isset($validated['profile_ids'])) {
-            $report->profile()->attach($validated['profile_ids']);
+        if ($request->input('profile_ids')) {
+            $report->profile()->attach($request->input('profile_ids'));
         }
 
         GenerateReportJob::dispatch($report);
@@ -40,9 +43,11 @@ class ReportController extends Controller
         return redirect()->route('reports.index')->with('success', 'Report created successfully.');
     }
 
+
     public function show(Report $report)
     {
         $report->load('profile');
+
         return view('reports.show', compact('report'));
     }
 
@@ -57,7 +62,7 @@ class ReportController extends Controller
             'title' => 'required',
             'description' => 'required',
             'profile_ids' => 'nullable|array',
-            'profile_ids.*' => 'nullable|integer|exists:profiles,id'
+            'profile_ids.*' => 'nullable|integer|exists:profile,id'
         ]);
 
         $report->update($validated);
@@ -79,7 +84,7 @@ class ReportController extends Controller
 
     public function reportsWithProfiles()
     {
-        $reports = Report::with('profiles')->get();
+        $reports = Report::with('profile')->get();
         return view('reports-with-profiles', compact('reports'));
     }
 

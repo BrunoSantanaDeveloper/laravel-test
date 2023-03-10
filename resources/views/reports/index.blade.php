@@ -25,7 +25,7 @@
                                 <td>{{$report->title}}</td>
                                 <td>{{$report->description}}</td>
                                 <td>
-                                    @foreach($report->profiles as $profile)
+                                    @foreach($report->profile as $profile)
                                     {{$profile->first_name}} {{$profile->last_name}}<br>
                                     @endforeach
                                 </td>

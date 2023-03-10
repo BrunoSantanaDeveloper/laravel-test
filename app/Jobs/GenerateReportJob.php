@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Dompdf\Dompdf;
 use App\Models\Report;
 use App\Mail\ReportCreated;
 use Illuminate\Bus\Queueable;
@@ -35,7 +36,7 @@ class GenerateReportJob implements ShouldQueue
     public function handle()
     {
         // gerar o PDF
-        $pdf = \PDF::loadView('reports.pdf', ['report' => $this->report]);
+        $pdf = DomPdf::loadView('reports.pdf', ['report' => $this->report]);
 
         // enviar o email com o PDF anexado
         Mail::to('bsantana.it@gmail.com')->send(new ReportCreated($this->report, $pdf));

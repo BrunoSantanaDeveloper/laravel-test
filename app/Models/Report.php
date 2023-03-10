@@ -9,10 +9,10 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'profile_id'];
+    protected $fillable = ['title', 'description'];
 
     public function profile()
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsToMany(Profile::class);
     }
 }

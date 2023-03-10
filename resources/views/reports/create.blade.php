@@ -43,13 +43,13 @@
                             <label for="profiles" class="col-md-4 col-form-label text-md-right">{{ __('Profiles') }}</label>
 
                             <div class="col-md-6">
-                                <select id="profiles" class="form-control @error('profiles') is-invalid @enderror" name="profiles[]" multiple>
+                                <select id="profiles" class="form-control @error('profile_ids') is-invalid @enderror" name="profile_ids[]" multiple>
                                     @foreach($profiles as $profile)
-                                    <option value="{{$profile->id}}">{{$profile->first_name}} {{$profile->last_name}}</option>
+                                    <option value="{{ $profile->id }}" {{ (collect(old('profile_ids'))->contains($profile->id)) ? 'selected' : '' }}>{{ $profile->first_name }} {{ $profile->last_name }}</option>
                                     @endforeach
                                 </select>
 
-                                @error('profiles')
+                                @error('profile_ids')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
