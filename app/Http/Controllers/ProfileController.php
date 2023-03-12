@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of profiles.
      *
      * @return \Illuminate\View\View
      */
@@ -17,23 +17,23 @@ class ProfileController extends Controller
         // Retrieve all profiles from the database
         $profiles = Profile::all();
 
-        // Renders the profile.index view with retrieved profiles
+        // Render the profile.index view with the retrieved profiles
         return view('profile.index', compact('profiles'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new profile.
      *
      * @return \Illuminate\View\View
      */
     public function create()
     {
-        // Renders the profile.create view to create a new profile
+        // Render the profile.create view to create a new profile
         return view('profile.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created profile in the database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -48,39 +48,39 @@ class ProfileController extends Controller
             'gender' => 'required',
         ]);
 
-        // Creates a new profile with request data
+        // Create a new profile with request data
         Profile::create($request->all());
 
-        // Redirects to profile listing with success message
+        // Redirect to profile listing with success message
         return redirect()->route('profile.index')->with('success', 'Profile created successfully.');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified profile.
      *
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\View\View
      */
     public function show(Profile $profile)
     {
-        // Renders the profile.show view with the specific profile passed as a parameter
+        // Render the profile.show view with the specific profile passed as a parameter
         return view('profile.show', compact('profile'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified profile.
      *
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\View\View
      */
     public function edit(Profile $profile)
     {
-        // Renders the profile.edit view with the specific profile passed as a parameter for editing
+        // Render the profile.edit view with the specific profile passed as a parameter for editing
         return view('profile.edit', compact('profile'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified profile in the database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Profile  $profile
@@ -96,15 +96,15 @@ class ProfileController extends Controller
             'gender' => 'required',
         ]);
 
-        // Updates the profile with the request data
+        // Update the profile with the request data
         $profile->update($request->all());
 
-        // Redirects to profile listing with success message
+        // Redirect to profile listing with success message
         return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified profile from the database.
      *
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\RedirectResponse
@@ -114,6 +114,7 @@ class ProfileController extends Controller
         // Remove the profile
         $profile->delete();
 
+        // Redirect to profile listing with success message
         return redirect()->route('profile.index')->with('success', 'Profile deleted successfully.');
     }
 }

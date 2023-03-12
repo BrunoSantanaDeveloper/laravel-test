@@ -9,9 +9,17 @@ class Report extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['title', 'description'];
 
-    public function profile()
+    /**
+     * Get the profiles that belong to the report.
+     */
+    public function profiles()
     {
         return $this->belongsToMany(Profile::class);
     }

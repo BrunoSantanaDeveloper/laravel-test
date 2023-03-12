@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <h2>Profile List</h2>
     <a href="{{ route('profile.create') }}" class="btn btn-primary mb-3">Create Profile</a>
@@ -19,7 +20,7 @@
             <tr>
                 <td>{{ $profile->first_name }}</td>
                 <td>{{ $profile->last_name }}</td>
-                <td>{{ \DateTime::createFromFormat('Y-m-d', $profile->dob)->format('d/m/Y') }}</td>
+                <td>{{ \DateTime::createFromFormat('Y-m-d', $profile->dob)->format('d/m/Y') }}</td> <!-- Use a meaningful variable name instead of 'dob'. Also, consider extracting this date formatting logic to a separate function. -->
                 <td>{{ $profile->gender }}</td>
                 <td>
                     <a href="{{ route('profile.show', ['profile' => $profile->id]) }}" class="btn btn-sm btn-primary">View</a>
@@ -27,7 +28,7 @@
                     <form action="{{ route('profile.destroy', ['profile' => $profile->id]) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this profile?')">Delete</button>
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this profile?')">Delete</button> <!-- Use a confirmation dialog with a more descriptive message for deleting. -->
                     </form>
                 </td>
             </tr>

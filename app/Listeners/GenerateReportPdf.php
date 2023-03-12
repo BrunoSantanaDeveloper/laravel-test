@@ -10,12 +10,18 @@ class GenerateReportPdf implements ShouldQueue
 {
     use InteractsWithQueue;
 
+    /**
+     * Handle the event.
+     *
+     * @param  \App\Events\ReportCreated $event
+     * @return void
+     */
     public function handle($event)
     {
-        // Retrieves the Report created from the event
+        // Retrieve the Report created from the event
         $report = $event->report;
 
-        // Loads the view with the Report's data
+        // Load the view with the Report's data
         $html = view('reports.pdf', compact('report'))->render();
 
         // Instantiate the Dompdf
@@ -31,7 +37,7 @@ class GenerateReportPdf implements ShouldQueue
         $path = storage_path("app/reports/{$filename}");
         file_put_contents($path, $pdf);
 
-        // Fires an event with the name of the generated file
+        // Fire an event with the name of the generated file
         event(new \App\Events\ReportPdfGenerated($filename));
     }
 }

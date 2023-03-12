@@ -18,6 +18,7 @@
                             <div class="col-md-6">
                                 <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name', $profile->first_name) }}" required autocomplete="first_name" autofocus>
 
+                                <!-- Display error message if first_name field validation fails -->
                                 @error('first_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -32,6 +33,7 @@
                             <div class="col-md-6">
                                 <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name', $profile->last_name) }}" required autocomplete="last_name" autofocus>
 
+                                <!-- Display error message if last_name field validation fails -->
                                 @error('last_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -46,6 +48,7 @@
                             <div class="col-md-6">
                                 <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" name="dob" value="{{ old('dob', $profile->dob) }}" required autocomplete="dob" autofocus>
 
+                                <!-- Display error message if dob field validation fails -->
                                 @error('dob')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -65,6 +68,7 @@
                                     <option value="Other" @if($profile->gender == 'Other') selected @endif>Other</option>
                                 </select>
 
+                                <!-- Display error message if gender field validation fails -->
                                 @error('gender')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -73,6 +77,7 @@
                             </div>
                         </div>
 
+                        <!-- Submit Button -->
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

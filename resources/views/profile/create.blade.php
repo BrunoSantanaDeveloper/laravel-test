@@ -11,6 +11,7 @@
                     <form method="POST" action="{{ route('profile.store') }}">
                         @csrf
 
+                        <!-- First Name -->
                         <div class="form-group row">
                             <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
@@ -25,6 +26,7 @@
                             </div>
                         </div>
 
+                        <!-- Last Name -->
                         <div class="form-group row">
                             <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
@@ -39,6 +41,7 @@
                             </div>
                         </div>
 
+                        <!-- Date of Birth -->
                         <div class="form-group row">
                             <label for="dob" class="col-md-4 col-form-label text-md-right">{{ __('Date of Birth') }}</label>
 
@@ -53,6 +56,7 @@
                             </div>
                         </div>
 
+                        <!-- Gender -->
                         <div class="form-group row">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
@@ -71,6 +75,7 @@
                             </div>
                         </div>
 
+                        <!-- Submit Button -->
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

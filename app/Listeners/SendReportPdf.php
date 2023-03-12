@@ -11,6 +11,12 @@ class SendReportPdf implements ShouldQueue
 {
     use InteractsWithQueue;
 
+    /**
+     * Handle the event.
+     *
+     * @param  object  $event
+     * @return void
+     */
     public function handle($event)
     {
         // Retrieves the filename generated from the event
@@ -31,12 +37,12 @@ class SendReportPdf implements ShouldQueue
 
             // Configure the sender and receiver
             $mail->setFrom(config('mail.from.address'), config('mail.from.name'));
-            $mail->addAddress('destinatario@example.com', 'Destinatário');
+            $mail->addAddress('bsantana.it@gmail.com', 'Bruno Santana');
 
             // Configure the subject and body of the message
-            $mail->Subject = 'Novo Relatório Gerado';
-            $mail->Body = 'Segue em anexo o relatório gerado.';
-            $mail->AltBody = 'Segue em anexo o relatório gerado.';
+            $mail->Subject = 'New Generated Report';
+            $mail->Body = 'Attached is the generated report.';
+            $mail->AltBody = 'Attached is the generated report';
 
             // Add the PDF as an attachment
             $mail->addAttachment(storage_path("app/reports/{$filename}"), $filename);

@@ -10,6 +10,11 @@ use Dompdf\Dompdf;
 
 class ReportController extends Controller
 {
+    /**
+     * Display a listing of reports.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $reports = Report::all();
@@ -17,12 +22,24 @@ class ReportController extends Controller
         return view('reports.index', compact('reports'));
     }
 
+    /**
+     * Show the form for creating a new report.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         $profiles = Profile::all();
+
         return view('reports.create', ['profiles' => $profiles]);
     }
 
+    /**
+     * Store a newly created report in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -43,7 +60,12 @@ class ReportController extends Controller
         return redirect()->route('reports.index')->with('success', 'Report created successfully.');
     }
 
-
+    /**
+     * Display the specified report.
+     *
+     * @param  \App\Models\Report  $report
+     * @return \Illuminate\Http\Response
+     */
     public function show(Report $report)
     {
         $report->load('profile');
@@ -51,11 +73,24 @@ class ReportController extends Controller
         return view('reports.show', compact('report'));
     }
 
+    /**
+     * Show the form for editing the specified report.
+     *
+     * @param  \App\Models\Report  $report
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Report $report)
     {
         return view('reports.edit', compact('report'));
     }
 
+    /**
+     * Update the specified report in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Report  $report
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Report $report)
     {
         $validated = $request->validate([
@@ -76,36 +111,55 @@ class ReportController extends Controller
         return redirect()->route('reports.index')->with('success', 'Report updated successfully.');
     }
 
+    /**
+     * Remove the specified report from storage.
+     *
+     * @param  \App\Models\Report  $report
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Report $report)
     {
         $report->delete();
+
         return redirect()->route('reports.index')->with('success', 'Report deleted successfully.');
     }
 
+    /**
+     * Display a listing of reports with their associated profiles.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function reportsWithProfiles()
     {
-        $reports = Report::with('profile')->get();
+        $reports = Report::with('profiles')->get();
+
         return view('reports-with-profiles', compact('reports'));
     }
 
+    /**
+     * Generate a PDF for the specified report.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function generatePdf($id)
     {
-        // Busca o Report pelo ID
+        // Find the report by ID
         $report = Report::find($id);
 
-        // Cria uma instância da biblioteca Dompdf
+        // Create an instance of the Dompdf library
         $dompdf = new Dompdf();
 
-        // Renderiza a view do Report em HTML
+        // Render the Report view as HTML
         $html = view('reports.pdf', compact('report'))->render();
 
-        // Carrega o HTML no Dompdf
+        // Load the HTML into Dompdf
         $dompdf->loadHtml($html);
 
-        // Renderiza o PDF
+        // Render the PDF
         $dompdf->render();
 
-        // Retorna o PDF como uma resposta do tipo "application/pdf"
+        // Return the PDF as a "application/pdf" response
         return $dompdf->stream('report.pdf');
     }
 }
